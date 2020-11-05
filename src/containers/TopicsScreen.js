@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import './TopicsScreen.css';
+import './TopicsScreen.css';
 
 class TopicsScreen extends Component {
   render() {
