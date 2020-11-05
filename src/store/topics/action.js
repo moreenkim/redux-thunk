@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import * as types from './actionTypes';
 import redditService from '../../services/reddit';
+import * as topicsSelectors from './reducer';
 
 export function fetchTopics() {
   return async (dispatch, getState) => {
@@ -17,6 +18,7 @@ export function fetchTopics() {
 export function selectTopic(topicUrl) {
   return (dispatch, getState) => {
     const selectedTopics = topicsSelectors.getSelectedTopicUrls(getState());
+    if (_.indexOf(selectedTopics, topicUrl) !== -1) return;
     const newSelectedTopics =
       selectedTopics.length < 3
         ? selectedTopics.concat(topicUrl)
@@ -26,4 +28,8 @@ export function selectTopic(topicUrl) {
       selectedTopicUrls: newSelectedTopics,
     });
   };
+}
+
+export function finalizeTopicSelection() {
+  return { type: types.TOPIC_SELECTION_FINALIZED };
 }
